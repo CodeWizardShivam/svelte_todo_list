@@ -1,31 +1,28 @@
 <script>
+// @ts-nocheck
+
   import Button from "./lib/Button.svelte";
   import IoIosAirplane from "svelte-icons/io/IoIosAirplane.svelte";
   import ToDoList from "./lib/ToDoList.svelte";
   import { v4 as uuid } from "uuid";
- 
-  let toDos = [
-    {
-      id: uuid(),//hi this is shivam
-      title: "Todo 1",//hi this is shivam
-      Completed: true,//hi this is shivam
-    },
-    {
-      id: uuid(),
-      title: "Todo 2",
-      Completed: true,
-    },
-    {
-      id: uuid(),
-      title: "Todo 3",
-      Completed: false,
-    },
-    {
-      id: uuid(),
-      title: "Todo 4",
-      Completed: true,
-    },
-  ];
+
+  let toDos = null;
+
+  function loadTodos() {
+    return fetch("https://jsonplaceholder.typicode.com/todos").then((response) => {
+      if(response.ok){
+        console.log('Inside if');
+        return response.json();
+  // console.table(response.json());
+       
+      }
+      else{
+        console.log('Inside else');
+        throw new Error('Error');
+      }
+    });
+  }
+
   function handleRemoveTodo(event) {
     toDos = toDos.filter((t) => t.id != event.detail.id);
     console.table(toDos);
@@ -44,10 +41,11 @@
     console.table(toDos);
   }
 </script>
-
+{#await loadTodos() then toDos}
 <ToDoList
   {toDos}
   on:RemoveTodo={handleRemoveTodo}
   on:ToggleTodo={handleToggleTodo}
   on:AddTodo={handleAddTodo}
 />
+{/await}

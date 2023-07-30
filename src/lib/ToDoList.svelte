@@ -13,8 +13,8 @@
     dispatch("RemoveTodo", { id });
   }
 
-  function handleToggleTodo(id, Completed) {
-    dispatch("ToggleTodo", { id, Completed });
+  function handleToggleTodo(id, completed) {
+    dispatch("ToggleTodo", { id, completed });
   }
   function handleAddTodo(inp) {
     dispatch("AddTodo", { inp });
@@ -27,11 +27,11 @@
       <label>
         <input
           on:input={(event) => {
-            event.currentTarget.checked = toDo.Completed;
+            event.currentTarget.checked = toDo.completed;
             console.log(toDo);
-            handleToggleTodo(toDo.id, !toDo.Completed);
+            handleToggleTodo(toDo.id, !toDo.completed);
           }}
-          checked={toDo.Completed}
+          checked={toDo.completed}
           type="checkbox"
         />
         {toDo.title}
