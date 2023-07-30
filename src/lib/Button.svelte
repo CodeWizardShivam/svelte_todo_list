@@ -1,57 +1,67 @@
-<script src="https://kit.fontawesome.com/a076d05399.js">
-  export let title = "";
-  export let size = 'small';
-  export let shadow = 'false';
-</script>
-
-<button 
- class:shadow
-class:size-sm ={size == 'small'}
-class:size-lg ={size == 'large'}
- 
->
-<div class="leftContent"><slot name="leftContent"/></div>
-{title}
-
-</button>
-
-<style lang="scss">
-  
+<script>
+    import { v4 as uuid } from "uuid";
+    import { createEventDispatcher } from "svelte";
+    export let toDos = null;
+    export let isLoading = false;
+    export let error = null;
    
-    button {
-        align-items: center;
-        display: flex;
-        border-radius: 1;
-        background-color: 
-        red;
-        // variable.$color;
-        border-color: #fff;
-        cursor: pointer;
-&:hover{
-            background-color: #dcee0f;
-            border-color: black;
-        }
-        &.size-sm{
-            
-            padding: 5px 5px;
-        }
-        &.size-lg{
-            
-            padding: 20px 20px;
-        }
-        &.shadow{
-            box-shadow: inset;
-            text-shadow: #dcee0f;
-            padding: 20px 20px;
-
-
-        }
-    .leftContent{
-        margin: 5px;
-        width: 50px;
-        color: white;
+    let inp;
+    let checked;
+  
+    const dispatch = createEventDispatcher();
+    console.table(toDos);
+  
+    function handleRemove(id) {
+      console.log("In handleRemove:" + id);
+      dispatch("RemoveTodo", { id });
     }
-        
-        
+  
+    function handleToggleTodo(id, completed) {
+      dispatch("ToggleTodo", { id, completed });
     }
-</style>
+    function handleAddTodo(inp) {
+      console.log('Inside Handle ToDo Definition')
+      console.log(inp)
+      dispatch("AddTodo", { inp });
+    }
+  </script>
+  
+  
+  {#if isLoading}
+    <p>Loading......</p>
+  {:else if error }
+  <p>{error}</p>
+  {:else if toDos }
+    
+  <ul>
+    {#each toDos as toDo}
+      <li>
+        <label>
+          <input
+            on:input={(event) => {
+              event.currentTarget.checked = toDo.completed;
+              console.log(toDo);
+              handleToggleTodo(toDo.id, !toDo.completed);
+            }}
+            checked={toDo.completed}
+            type="checkbox"
+          />
+          {toDo.title}
+         
+          <button on:click={() => handleRemove(toDo.id)}>Remove</button>
+        </label>
+      </li>
+    {/each}
+  </ul>
+  
+  
+  
+  
+  <form action=""><input bind:value={inp} /></form>
+  <button
+    on:click={() => {
+      handleAddTodo(inp);
+      console.log(inp)
+    }}>Add</button
+  >
+  {/if}
