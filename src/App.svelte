@@ -42,7 +42,7 @@
   function handleAddTodo(event) {
     toDos.push({ id: uuid(), title: event.detail.inp, Completed: false });
     toDos = toDos;
-    console.table(toDos);
+    console.table(toDos); 
   }
 </script>
 
