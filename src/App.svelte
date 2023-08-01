@@ -1,9 +1,6 @@
 <script>
-  import Button from "./lib/Button.svelte";
-  import IoIosAirplane from "svelte-icons/io/IoIosAirplane.svelte";
-  import ToDoList from "./lib/ToDoList.svelte";
-  import { v4 as uuid } from "uuid";
   import { onMount } from "svelte";
+  import ToDoList from "./lib/ToDoList.svelte";
 
   let isLoading = false;
   let error = null;
@@ -28,8 +25,19 @@
   }
 
   function handleRemoveTodo(event) {
-    toDos = toDos.filter((t) => t.id != event.detail.id);
-    console.table(toDos);
+    var requestOptions = {
+      method: "DELETE",
+      redirect: "follow",
+    };
+
+    fetch("https://jsonplaceholder.typicode.com/todos/" + event.detail.id , requestOptions).then(
+      (response) => {
+        if (response.ok) {
+          toDos = toDos.filter((t) => t.id != event.detail.id);
+          console.table(toDos);
+        }
+      }
+    );
   }
   function handleToggleTodo(event) {
     toDos = toDos.map((t) => {
@@ -49,10 +57,9 @@
       body: JSON.stringify({
         title: event.detail.inp,
         completed: false,
-        
       }),
-      headers:{
-'Content-Type' : 'application/json'
+      headers: {
+        "Content-Type": "application/json",
       },
     }).then(async (res) => {
       if (res.ok) {
