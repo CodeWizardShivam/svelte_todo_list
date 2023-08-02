@@ -17,7 +17,7 @@
 
     dispatch("ToggleTodo", { id, completed });
   }
-  function handleAddTodo(inp) {
+  function handleAddTodo() {
     dispatch("AddTodo", { inp });
   }
 </script>
@@ -30,11 +30,11 @@
           <input
             on:input={(event) => {
               event.currentTarget.checked = toDo.completed;
-                      handleToggleTodo(toDo.id, !toDo.completed);
-                    }}
-                    type="checkbox"
-                    checked={toDo.completed}
-                  />
+              handleToggleTodo(toDo.id, !toDo.completed);
+            }}
+            type="checkbox"
+            checked={toDo.completed}
+          />
           {toDo.title}
 
           <button on:click={() => handleRemove(toDo.id)}>Remove</button>
@@ -44,9 +44,11 @@
   </ul>
 {/if}
 
-<form action=""><input bind:value={inp} /></form>
+<form action="" on:submit|preventDefault={handleAddTodo}>
+  <input bind:value={inp} />
+</form>
 <button
   on:click={() => {
-    handleAddTodo(inp);
+    handleAddTodo();
   }}>Add</button
 >
