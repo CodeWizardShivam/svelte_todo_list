@@ -36,12 +36,19 @@
     });
   }
   function handleToggleTodo(event) {
-    toDos = toDos.map((t) => {
-      if (t.id == event.detail.id) {
-        return { ...t, completed: event.detail.completed };
-      } else return { ...t };
+    fetch("https://jsonplaceholder.typicode.com/todos/" + event.detail.id, {
+      method: "PATCH",
+      redirect: "follow",
+    }).then((response) => {
+      if (response.ok) {
+        toDos = toDos.map((t) => {
+          if (t.id == event.detail.id) {
+            return { ...t, completed: event.detail.completed };
+          } else return { ...t };
+        });
+        console.table(toDos);
+      }
     });
-    console.table(toDos);
   }
   function handleAddTodo(event) {
     console.log("Inside App.Svelte Handle add todo definition");
