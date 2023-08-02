@@ -1,6 +1,8 @@
 <script>
   import { createEventDispatcher } from "svelte";
   export let toDos = null;
+  export let error = null;
+  export let isLoading = null;
   let inp;
   let checked;
 
@@ -22,7 +24,11 @@
   }
 </script>
 
-{#if toDos}
+{#if isLoading}
+  <p class="state-text">Loading...</p>
+{:else if error}
+  <p class="state-text">{error}</p>
+{:else if toDos}
   <ul>
     {#each toDos as toDo}
       <li>

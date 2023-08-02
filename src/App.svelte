@@ -25,19 +25,15 @@
   }
 
   function handleRemoveTodo(event) {
-    var requestOptions = {
+    fetch("https://jsonplaceholder.typicode.com/todos/" + event.detail.id, {
       method: "DELETE",
       redirect: "follow",
-    };
-
-    fetch("https://jsonplaceholder.typicode.com/todos/" + event.detail.id , requestOptions).then(
-      (response) => {
-        if (response.ok) {
-          toDos = toDos.filter((t) => t.id != event.detail.id);
-          console.table(toDos);
-        }
+    }).then((response) => {
+      if (response.ok) {
+        toDos = toDos.filter((t) => t.id != event.detail.id);
+        console.table(toDos);
       }
-    );
+    });
   }
   function handleToggleTodo(event) {
     toDos = toDos.map((t) => {
