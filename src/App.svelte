@@ -3,7 +3,7 @@
   import ToDoList from "./lib/ToDoList.svelte";
 
   let isLoading = false;
-  let error = null;
+  let error = '';
 
   let toDos = [];
   onMount(() => {
@@ -82,7 +82,11 @@
   {toDos}
   {error}
   {isLoading}
+  let:toDo
   on:RemoveTodo={handleRemoveTodo}
   on:ToggleTodo={handleToggleTodo}
   on:AddTodo={handleAddTodo}
-/>
+
+>
+<div class="todo">{toDo.title}</div>
+</ToDoList>

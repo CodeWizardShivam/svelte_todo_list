@@ -32,6 +32,7 @@
   <ul>
     {#each toDos as toDo}
       <li>
+        <slot {toDo}>
         <label>
           <input
             on:input={(event) => {
@@ -45,7 +46,9 @@
 
           <button on:click={() => handleRemove(toDo.id)}>Remove</button>
         </label>
+      </slot>
       </li>
+   
     {/each}
   </ul>
 {/if}
