@@ -88,5 +88,5 @@
   on:AddTodo={handleAddTodo}
 
 >
-<div class="todo">{toDo.title}</div>
+<!-- p<div class="todo">{toDo.title}</div> -->
 </ToDoList>
