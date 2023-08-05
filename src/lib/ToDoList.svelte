@@ -36,7 +36,7 @@
       <ul style="text-align: left;">
         {#each toDos as { id, title, completed } (id)}
           {@const toDo = { id, title, completed }}
-          <li class={completed?"complete":"not-complete"}>
+          <li class={completed ? "complete" : "not-complete"}>
             <slot {toDo}>
               <label>
                 <input
@@ -77,48 +77,6 @@
     }}>Add</button
   >
 </div>
-
-<style lang="scss">
-  .todo-add {
-    display: inline;
-
-    /* background-color: red; */
-  }
-
-  .ToDoList-wrapper {
-    background-color: #424242;
-    border: 1px solid #4b4b4b;
-  }
-  .todolist {
-    max-width: 400px;
-    ul {
-      margin: 0px;
-      padding: 10px;
-
-      li {
-        display: flex;
-        margin-bottom: 5px;
-        background-color: #303030;
-        padding: 10px;
-        color: white;
-        lable {
-          input {
-            cursor: progress;
-            margin: 0 20 0 0;
-          }
-          cursor: progress;
-
-          display: flex;
-          align-items: baseline;
-        }
-        &.complete {
-          opacity: 0.5;
-          text-decoration: line-through;
-        }
-      }
-    } 
-  }
-</style>
 
 <!-- <style lang="scss">
   .ToDoList-wrapper {
@@ -206,3 +164,45 @@
     }
   }
 </style> -->
+
+<style lang="scss">
+  .todo-add {
+    display: inline;
+
+    /* background-color: red; */
+  }
+
+  .ToDoList-wrapper {
+    background-color: #424242;
+    border: 1px solid #4b4b4b;
+  }
+  .todolist {
+    max-width: 400px;
+    ul {
+      margin: 0px;
+      padding: 10px;
+
+      li {
+        display: flex;
+        margin-bottom: 5px;
+        background-color: #303030;
+        padding: 10px;
+        color: white;
+        lable {
+          input {
+            cursor: progress;
+            margin: 0 20 0 0;
+          }
+          cursor: progress;
+
+          display: flex;
+          align-items: baseline;
+        }
+        &.complete {
+          opacity: 0.5;
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+</style>
