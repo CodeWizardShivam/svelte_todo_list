@@ -67,27 +67,45 @@
       </ul>
     {/if}
   </div>
-
-  <form class="todo-add" action="" on:submit|preventDefault={handleAddTodo}>
-    <input bind:value={inp} />
-  </form>
-  <button
-    class="todo-add"
-    style={"background-color:red; color:white;"}
-    on:click={() => {
-      handleAddTodo();
-    }}>Add</button
-  >
+  <div class="todo-form-add">
+    <form class="todo-add" action="" on:submit|preventDefault={handleAddTodo}>
+      <input bind:value={inp} />
+      <button
+      class="todo-add"
+      style={"background-color:red; color:white;"}
+      on:click={() => {
+        handleAddTodo();
+      }}>Add</button
+    >
+    </form>
+    
+  </div>
 </div>
 
 <style lang="scss">
-  .todo-add {
-    display: inline;
-  }
-
   .ToDoList-wrapper {
     background-color: #424242;
     border: 1px solid #4b4b4b;
+
+    .todo-form-add{
+      
+      background-color: #303030;
+     
+    }
+
+    .todo-add {
+      padding: 15px;
+      flex-wrap: wrap;
+      display: flex;
+      border-radius: 10px;
+;
+      align-items: baseline;
+      input {
+        flex: 1;
+        background-color: #424242;
+
+      }
+    }
   }
   .todolist {
     max-width: 400px;
@@ -100,6 +118,7 @@
         align-items: center;
         margin-bottom: 5px;
         background-color: #303030;
+        border-radius: 10px;
         padding: 10px;
         color: white;
 
@@ -115,7 +134,7 @@
 
           input {
             cursor: pointer;
-            margin: 0 20 0 0;
+            margin: 0 10px 0 0;
           }
         }
         .remove-todo-button {
@@ -125,7 +144,13 @@
           cursor: pointer;
           margin-left: 10px;
           align-items: baseline;
-          color: white;
+          color: red;
+          display: none;
+        }
+        &:hover {
+          .remove-todo-button {
+            display: block;
+          }
         }
       }
     }
