@@ -1,9 +1,6 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { afterUpdate, createEventDispatcher } from "svelte";
   import FaRegTrashAlt from "svelte-icons/fa/FaRegTrashAlt.svelte";
-  import { onMount, tick } from 'svelte';
-  import { afterUpdate } from 'svelte';
-
 
   export let toDos = null;
   export let error = null;
@@ -13,16 +10,11 @@
   let element_ul;
   const dispatch = createEventDispatcher();
   console.table(toDos);
-  // afterUpdate(()=>{
-
-  //   element_ul.scroll({ top: element_ul.scrollHeight, behavior: "smooth" });
-   
-  // });
-  // onMount(()=>{
-
-  //   element_ul.scroll({ top: element_ul.scrollHeight, behavior: "smooth" });
-   
-  // });
+  afterUpdate(() => {
+    if (element_ul) {
+      element_ul.scroll({ top: element_ul.scrollHeight, behavior: "smooth" });
+    }
+  });
 
   function handleRemove(id) {
     console.log("In handleRemove:" + id);
@@ -41,7 +33,7 @@
 
 <div class="ToDoList-wrapper">
   <div class="todolist">
-    <h1>Svelte Todo</h1>
+    <h2>Svelte Todo</h2>
     {#if isLoading}
       <p class="state-text">Loading...</p>
     {:else if error}
@@ -88,7 +80,6 @@
         style={"background-color:red; color:white;"}
         on:click={() => {
           handleAddTodo;
-          
         }}>Add</button
       >
     </form>
@@ -114,7 +105,6 @@
         margin-right: 10px;
         padding: 10px;
         flex: 1;
-
         background-color: #424242;
         color: white;
       }
@@ -122,7 +112,7 @@
   }
   .todolist {
     max-width: 400px;
-    h1 {
+    h2 {
       color: white;
       padding: opx;
       margin: 10px;
