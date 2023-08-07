@@ -1,15 +1,28 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import FaRegTrashAlt from "svelte-icons/fa/FaRegTrashAlt.svelte";
+  import { onMount, tick } from 'svelte';
+  import { afterUpdate } from 'svelte';
+
 
   export let toDos = null;
   export let error = null;
   export let isLoading = null;
   let inp;
   let checked;
-
+  let element_ul;
   const dispatch = createEventDispatcher();
   console.table(toDos);
+  // afterUpdate(()=>{
+
+  //   element_ul.scroll({ top: element_ul.scrollHeight, behavior: "smooth" });
+   
+  // });
+  // onMount(()=>{
+
+  //   element_ul.scroll({ top: element_ul.scrollHeight, behavior: "smooth" });
+   
+  // });
 
   function handleRemove(id) {
     console.log("In handleRemove:" + id);
@@ -28,6 +41,7 @@
 
 <div class="ToDoList-wrapper">
   <div class="todolist">
+    <h1>Svelte Todo</h1>
     {#if isLoading}
       <p class="state-text">Loading...</p>
     {:else if error}
@@ -36,10 +50,9 @@
       {#if toDos.length == 0}
         <p class="state-text">No To Dos Yet.</p>
       {/if}
-      <ul style="text-align: left;">
-        {#each toDos as { id, title, completed } (id)}
-          {@const toDo = { id, title, completed }}
-          <li class={completed ? "complete" : "not-complete"}>
+      <ul bind:this={element_ul}>
+        {#each toDos as toDo}
+          <li class={toDo.completed ? "complete" : "not-complete"}>
             <slot {toDo}>
               <label class="lable-text">
                 <input
@@ -71,14 +84,14 @@
     <form class="todo-add" action="" on:submit|preventDefault={handleAddTodo}>
       <input bind:value={inp} />
       <button
-      class="todo-add"
-      style={"background-color:red; color:white;"}
-      on:click={() => {
-        handleAddTodo();
-      }}>Add</button
-    >
+        class="todo-add"
+        style={"background-color:red; color:white;"}
+        on:click={() => {
+          handleAddTodo;
+          
+        }}>Add</button
+      >
     </form>
-    
   </div>
 </div>
 
@@ -87,31 +100,39 @@
     background-color: #424242;
     border: 1px solid #4b4b4b;
 
-    .todo-form-add{
-      
+    .todo-form-add {
       background-color: #303030;
-     
     }
 
     .todo-add {
-      padding: 15px;
+      padding: 10px;
       flex-wrap: wrap;
       display: flex;
       border-radius: 10px;
-;
       align-items: baseline;
       input {
+        margin-right: 10px;
+        padding: 10px;
         flex: 1;
-        background-color: #424242;
 
+        background-color: #424242;
+        color: white;
       }
     }
   }
   .todolist {
     max-width: 400px;
+    h1 {
+      color: white;
+      padding: opx;
+      margin: 10px;
+    }
     ul {
       margin: 0px;
       padding: 10px;
+      text-align: left;
+      height: 400px;
+      overflow: auto;
 
       li {
         display: flex;
