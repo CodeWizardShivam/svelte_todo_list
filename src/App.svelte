@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import ToDoList from "./lib/ToDoList.svelte";
+  import { v4 as uuid } from "uuid";
 
   let isLoading = false;
   let error = "";
@@ -69,7 +70,8 @@
         const toDo = await res.json();
         console.log("From Post");
         console.log(toDo);
-        toDos.push(toDo);
+        console.log([...toDos, { ...toDo, id: uuid() }]);
+        toDos = [...toDos, { ...toDo, id: uuid() }];
         toDos = toDos;
       }
     });
@@ -86,7 +88,6 @@
   on:RemoveTodo={handleRemoveTodo}
   on:ToggleTodo={handleToggleTodo}
   on:AddTodo={handleAddTodo}
-
-  >
+>
   <!-- p<div class="todo">{toDo.title}</div> -->
 </ToDoList>
