@@ -28,6 +28,7 @@
   }
   function handleAddTodo() {
     dispatch("AddTodo", { inp });
+    inp = "";
   }
 </script>
 
