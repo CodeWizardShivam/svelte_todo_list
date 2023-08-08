@@ -13,7 +13,7 @@
 
   async function loadTodos() {
     isLoading = true;
-    await fetch("https://jsonplaceholder.typicode.com/todos?_limit=10").then(
+    await fetch("https://my-json-server.typicode.com/ShivamPandey10/FakeJson/todos/").then(
       async (response) => {
         if (response.ok) {
           toDos = await response.json();
@@ -26,7 +26,7 @@
   }
 
   function handleRemoveTodo(event) {
-    fetch("https://jsonplaceholder.typicode.com/todos/" + event.detail.id, {
+    fetch("https://my-json-server.typicode.com/ShivamPandey10/FakeJson/todos/" + event.detail.id, {
       method: "DELETE",
       redirect: "follow",
     }).then((response) => {
@@ -37,7 +37,7 @@
     });
   }
   function handleToggleTodo(event) {
-    fetch("https://jsonplaceholder.typicode.com/todos/" + event.detail.id, {
+    fetch("https://my-json-server.typicode.com/ShivamPandey10/FakeJson/todos/" + event.detail.id, {
       method: "PATCH",
       redirect: "follow",
     }).then((response) => {
@@ -56,7 +56,7 @@
     console.log(event);
 
     console.log(event.detail.inp);
-    fetch("https://jsonplaceholder.typicode.com/todos", {
+    fetch("https://my-json-server.typicode.com/ShivamPandey10/FakeJson/todos/", {
       method: "POST",
       body: JSON.stringify({
         title: event.detail.inp,
