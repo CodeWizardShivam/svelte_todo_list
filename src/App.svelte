@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
-  import ToDoList from "./lib/ToDoList.svelte";
   import { v4 as uuid } from "uuid";
+  import ToDoList from "./lib/ToDoList.svelte";
 
   let isLoading = false;
   let error = "";
@@ -13,20 +13,20 @@
 
   async function loadTodos() {
     isLoading = true;
-    await fetch("https://my-json-server.typicode.com/ShivamPandey10/FakeJson/todos/").then(
-      async (response) => {
-        if (response.ok) {
-          toDos = await response.json();
-        } else {
-          error = "An error has occurred";
-        }
+    await fetch(
+      "https://my-json-server.typicode.com/ShivamPandey10/FakeJson/todos/"
+    ).then(async (response) => {
+      if (response.ok) {
+        toDos = await response.json();
+      } else {
+        error = "An error has occurred";
       }
-    );
+    });
     isLoading = false;
   }
 
   function handleRemoveTodo(event) {
-    fetch("https://my-json-server.typicode.com/ShivamPandey10/FakeJson/todos/" + event.detail.id, {
+    fetch("https://jsonplaceholder.typicode.com/todos/" + event.detail.id, {
       method: "DELETE",
       redirect: "follow",
     }).then((response) => {
@@ -37,7 +37,7 @@
     });
   }
   function handleToggleTodo(event) {
-    fetch("https://my-json-server.typicode.com/ShivamPandey10/FakeJson/todos/" + event.detail.id, {
+    fetch("https://jsonplaceholder.typicode.com/todos/" + event.detail.id, {
       method: "PATCH",
       redirect: "follow",
     }).then((response) => {
@@ -56,7 +56,7 @@
     console.log(event);
 
     console.log(event.detail.inp);
-    fetch("https://my-json-server.typicode.com/ShivamPandey10/FakeJson/todos/", {
+    fetch("https://jsonplaceholder.typicode.com/todos/", {
       method: "POST",
       body: JSON.stringify({
         title: event.detail.inp,
