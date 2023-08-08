@@ -77,6 +77,7 @@
     <form class="todo-add" action="" on:submit|preventDefault={handleAddTodo}>
       <input bind:value={inp} />
       <button
+        disabled={!inp}
         class="todo-add"
         style={"background-color:red; color:white;"}
         on:click={() => {
